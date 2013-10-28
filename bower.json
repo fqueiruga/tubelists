@@ -15,7 +15,8 @@
     "angular-sanitize": "1.0.7",
     "angular-resource": "1.0.7",
     "angular-cookies": "1.0.7",
-    "angular-mocks": "1.0.7"
+    "angular-mocks": "1.0.7",
+    "bootstrap-sass": "~2.3.2"
   },
   "overrides": {
     "angular-mocks": {
