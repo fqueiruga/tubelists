@@ -1,10 +1,10 @@
 'use strict'
 
 # Declare app level module which depends on filters, and services
-tubelistsApp = angular.module('tubelistsApp', [
-  'ngResource'
+angular.module('tubelistsApp', [
+  'ui.bootstrap'
   'tubelistsApp.controllers'
+  'tubelistsApp.services'
+  'tubelistsApp.directives'
 ])
-
-
 

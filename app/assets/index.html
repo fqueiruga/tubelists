@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Tubelists App</title>
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
     <script>
       window.brunch = window.brunch || {};
       window.brunch['auto-reload'] = {
@@ -15,12 +15,11 @@
   </head>
 
   <body>
-
-    <div ng-controller="SearchCtrl">
-      {{ fullName() }}
+  <div class="row">
+    <div class="span4"></div>
+    <div class="span8">
+      <div ng-include src="'templates/player.tpl.html'"></div>
     </div>
-
-
-
+  </div>
   </body>
 </html>
