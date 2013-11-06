@@ -53,11 +53,11 @@ angular.module('tubelistsApp.controllers.player', [])
 
     $scope.$on 'youtube:player:playing', ->
       $scope.isPlaying = true
-      $scope.$apply()
+      $scope.$digest()
 
     $scope.$on 'youtube:player:paused', ->
       $scope.isPlaying = false
-      $scope.$apply()
+      $scope.$digest()
 
 ])
 

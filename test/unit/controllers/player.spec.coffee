@@ -30,6 +30,9 @@ describe "PlayerCtrl", ->
       @ctrl = $controller 'PlayerCtrl',
         $scope: @scope
 
+  it "should work", ->
+    expect(true).toEqual true
+
   it "should queue a video", ->
     @scope.queue {video: "vid1"}
     @expect(@playList.add).toHaveBeenCalled()

@@ -26,6 +26,9 @@ class PlayListService
     @current =
       videoId: "0G3_kG5FFfQ"
       title: "Avril Lavigne - When You're Gone"
+    # @upcoming = []
+    # @history = []
+    # @current = null
 
   # Moves first element to upcoming to the end of history
   next: ->
