@@ -58,5 +58,3 @@ describe "YouTube Search Service", ->
   		result = error
   	@httpBackend.flush()
   	expect(result).toBe "error"
-
-

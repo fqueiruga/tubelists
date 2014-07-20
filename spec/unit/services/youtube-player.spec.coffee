@@ -7,16 +7,17 @@ describe "YouTube Player Service", ->
 
   beforeEach module "tubelistsApp.services.youTubePlayer"
 
-  beforeEach(inject ($injector) ->
-    @playerStates = $injector.get 'YTPlayerStates'
-    @youtube = $injector.get 'youTubePlayerService',
-      YTPlayerStates: @playerStates
+  beforeEach ->
+    inject ($injector) =>
+      @playerStates = $injector.get 'YTPlayerStates'
+      @youtube = $injector.get 'youTubePlayerService',
+        YTPlayerStates: @playerStates
 
-    @window = $injector.get '$window'
+      @window = $injector.get '$window'
 
-    @youtube.createPlayer =
-          jasmine.createSpy("createPlayer() spy").andCallFake -> @player = {}
-  )
+      @youtube.createPlayer =
+            jasmine.createSpy("createPlayer() spy").and.callFake -> @player = {}
+
 
   it "should react to YouTubeAPIReady", ->
     inject ($rootScope) =>
@@ -65,10 +66,10 @@ describe "YouTube Player Service", ->
 
   describe "responding to youtube state", ->
 
-    beforeEach(inject ($injector) ->
-      @rootScope = $injector.get '$rootScope'
-      spyOn @rootScope, '$broadcast'
-    )
+    beforeEach ->
+      inject ($injector) =>
+        @rootScope = $injector.get '$rootScope'
+        spyOn @rootScope, '$broadcast'
 
     it "should broadcast video ended event", ->
       @youtube.onPlayerStateChange { data: @playerStates.ENDED }

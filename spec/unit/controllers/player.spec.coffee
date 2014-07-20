@@ -1,22 +1,16 @@
 'use strict'
 
-
 describe "PlayerCtrl", ->
 
   beforeEach module "tubelistsApp.controllers.player"
 
   beforeEach ->
-    @playList =
-      history: [{videoId: "vid1"}, {videoId: "vid2"}]
-      upcoming: [{videoId: "vid4"}, {videoId: "vid5"}]
-      current: {videoId : "vid3"}
-    @playList.remove = jasmine.createSpy('playist remove')
-    @playList.add = jasmine.createSpy('playList create')
+    @playList = jasmine.createSpyObj 'playList', ['remove', 'add']
+    @playList.history = [{videoId: "vid1"}, {videoId: "vid2"}]
+    @playList.upcoming = [{videoId: "vid4"}, {videoId: "vid5"}]
+    @playList.current = {videoId : "vid3"}
 
-    @ytPlayer = {}
-    @ytPlayer.loadVideo = jasmine.createSpy("load video")
-    @ytPlayer.cueVideo = jasmine.createSpy("cue video")
-
+    @ytPlayer = jasmine.createSpyObj 'ytPlayer', ['loadVideo', 'cueVideo']
 
   beforeEach ->
     angular.mock.module ($provide) =>
@@ -35,11 +29,11 @@ describe "PlayerCtrl", ->
 
   it "should queue a video", ->
     @scope.queue {video: "vid1"}
-    @expect(@playList.add).toHaveBeenCalled()
+    expect(@playList.add).toHaveBeenCalled()
 
   it "should remove a video from the play list", ->
     @scope.remove {video: "vid1"}
-    @expect(@playList.remove).toHaveBeenCalled()
+    expect(@playList.remove).toHaveBeenCalled()
 
   it "should watch the values of $scope.isPlaying to set the state", ->
     @scope.isPlaying = true
@@ -54,41 +48,44 @@ describe "PlayerCtrl", ->
   describe "player controls", ->
 
     beforeEach ->
-      @ytPlayer.player = {}
+      @ytPlayer.player = jasmine.createSpyObj 'ytPlayer.player', [
+        'playVideo'
+        'pauseVideo'
+        'reset'
+      ]
+      
 
     it "should play the current video if the player is paused", ->
-      @ytPlayer.player.playVideo = jasmine.createSpy("player.playVideo")
       @scope.isPlaying = false
       @scope.controls.play()
       expect(@ytPlayer.player.playVideo).toHaveBeenCalled()
 
-      @ytPlayer.player.playVideo.reset()
+      @ytPlayer.player.playVideo.calls.reset()
       @scope.isPlaying = true
       @scope.controls.play()
       expect(@ytPlayer.player.playVideo).not.toHaveBeenCalled()
 
     it "should pause the current video if the player is playing", ->
-      @ytPlayer.player.pauseVideo = jasmine.createSpy("player.pauseVideo")
       @scope.isPlaying = true
       @scope.controls.pause()
       expect(@ytPlayer.player.pauseVideo).toHaveBeenCalled()
 
-      @ytPlayer.player.pauseVideo.reset()
+      @ytPlayer.player.pauseVideo.calls.reset()
       @scope.isPlaying = false
       @scope.controls.pause()
       expect(@ytPlayer.player.pauseVideo).not.toHaveBeenCalled()
 
     it "should play the next video", ->
-      spyOn(@scope.controls, 'loadVideo')
+      spyOn(@scope.controls, 'loadVideo')     
       @playList.next = jasmine.createSpy("playList next")
-        .andReturn @playList.upcoming[0]
+        .and.returnValue @playList.upcoming[0]
       @scope.controls.next()
       expect(@scope.controls.loadVideo).toHaveBeenCalled()
 
     it "should play the previous video", ->
       spyOn(@scope.controls, 'loadVideo')
       @playList.previous = jasmine.createSpy("playList previous")
-        .andReturn @playList.upcoming[0]
+        .and.returnValue @playList.upcoming[0]
       @scope.controls.previous()
       expect(@scope.controls.loadVideo).toHaveBeenCalled()
 
@@ -100,7 +97,7 @@ describe "PlayerCtrl", ->
       @scope.controls.loadVideo {autoplay: true}
       expect(@ytPlayer.loadVideo).toHaveBeenCalled()
 
-      @ytPlayer.loadVideo.reset()
+      @ytPlayer.loadVideo.calls.reset()
       @scope.isPlaying = true
       @scope.controls.loadVideo()
       expect(@ytPlayer.loadVideo).toHaveBeenCalled()
@@ -128,7 +125,8 @@ describe "PlayerCtrl", ->
 
     it "should play the next video when a video ends", ->
       spyOn(@scope.controls, 'loadVideo')
-      @playList.next = jasmine.createSpy("playList next").andReturn "video"
+      @playList.next = jasmine.createSpy("playList next")
+        .and.returnValue "video"
       @rootScope.$broadcast "youtube:player:ended"
 
       expect(@scope.playList.next).toHaveBeenCalled()

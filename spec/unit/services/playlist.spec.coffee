@@ -4,12 +4,12 @@ describe "PlayList Service", ->
 
   beforeEach module "tubelistsApp.services.playList"
 
-  beforeEach(inject (playListService) ->
-    @playList = playListService
-    @playList.upcoming = ["Numa Numa"]
-    @playList.history = ["Chocolate Rain"]
-    @playList.current = "Rick roll"
-  )
+  beforeEach ->
+    inject (playListService) =>
+      @playList = playListService
+      @playList.upcoming = ["Numa Numa"]
+      @playList.history = ["Chocolate Rain"]
+      @playList.current = "Rick roll"
 
   describe "moving through the list", ->
 
@@ -86,6 +86,5 @@ describe "PlayList Service", ->
 
   it "should export the playlist merging both arrays", ->
     @playList.history = ["Chocolate Rain", "Rick Roll"]
-
     list = @playList.playList()
     expect(list).toEqual(["Chocolate Rain", "Rick Roll", "Numa Numa"])

@@ -29,6 +29,7 @@ angular.module('tubelistsApp.services.youTubeSearch', [])
 							videoId: item.id.videoId
 							title: item.snippet.title
 
+
 				.error (data) ->
 					deferred.reject data
 
