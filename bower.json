@@ -2,25 +2,17 @@
   "name": "tubelists",
   "repo": "fqueiruga/tubelists",
   "version": "0.0.1",
-  "main": "_public/js/app.js",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "components"
-  ],
   "dependencies": {
-    "console-polyfill": "~0.1.0",
-    "angular-bootstrap": "~0.5.0",
-    "angular": "1.0.7",
-    "angular-sanitize": "1.0.7",
-    "angular-resource": "1.0.7",
-    "angular-cookies": "1.0.7",
-    "angular-mocks": "1.0.7",
-    "bootstrap-sass": "~2.3.2"
+    "jquery": "~1.9.0",
+    "lodash": "~2.4.1",
+    "angular": "~1.2.16",
+    "twbs-bootstrap-sass": "~3.1.1",
+    "font-awesome": "~4.0.3",
+    "angular-ui-router": "~0.2.10",
+    "angular-bootstrap": "~0.11.0"
   },
-  "overrides": {
-    "angular-mocks": {
-      "main": "README.md"
-    }
+  "devDependencies": {
+    "jasmine": "~2.0.0",
+    "angular-mocks": "~1.2.16"
   }
 }

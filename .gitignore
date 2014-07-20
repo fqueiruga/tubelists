@@ -1,19 +1,15 @@
-**/.DS_Store
-nbproject
-manifest.mf
-build.xml
+.DS_Store
 
+/node_modules
 
-.project
-.settings
-.idea/*
-*.iml
+/dist
+/generated
+/deploy
 
-_public
-node_modules/*
+.sass-cache
+
+/vendor/bower
+
+*.swp
+
 npm-debug.log
-
-test/test-results.xml
-
-# Bower stuff.
-bower_components/
