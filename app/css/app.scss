@@ -1,68 +1,64 @@
-$player-height: 360;
-$player-width: 640;
-$player-container-width: 650px;
+@import "vendor/bower/font-awesome/scss/font-awesome";
+@import "vendor/bower/bourbon/dist/_bourbon.scss";
 
-/* colors */
-$lightGrey: #e6e6e6;
-$lightRed: #d65c5c;
-$lightGreen: #336633;
+/**
+ * Variables
+ */
 
-.player {
-  width: $player-container-width;
-  iframe {
-    border: 1px solid black;
-    margin: 4px;
-  }
-  .player-controls {
-    li {
-      padding: 0;
-    }
-  }
+$color-main: #b0120a;
+$color-sidebar-font: rgba(255, 255, 255, 0.9);
 
+$sidebar-padding: 20px;
+$sidebar-width: 200px;
+$sidebar-full-width: $sidebar-width + ($sidebar-padding * 2);
+$sidebar-offset: -1 * $sidebar-full-width;
+
+$toggler-offset: 20px;
+
+
+/**
+ * Sidebar animation
+ * Taken from https://www.youtube.com/watch?v=d4P8s-mkMvs
+ */
+
+.page-content {
+  position: relative;
+  z-index: 0;
+  @include transition();
 }
 
+.toggle {
+  @include position(fixed, $toggler-offset null null $toggler-offset);
+  z-index: 1;
+  @include transition();
 
-.playlists {
-  width: $player-container-width;
-  margin-top: 10px;
-  border: 1px solid blue;
-  .list {
-    width: 45%;
-    float: left;
-    margin: 0 10px;
+  text-decoration: none;
+  font-size: 30px;
+  color: $color-main;
+}
 
-    ol {
-      list-style: none;
-      margin: 0;
-      li {
-        display: block;
-        padding: 5px;
-        :hover {
-          cursor: pointer;
-        }
-        background: $lightGrey;
-        margin-bottom: 10px;
-        overflow: hidden;
-      }
-    }
+.sidebar {
+  @include position(fixed, 0px 0px 0px $sidebar-offset);
+  z-index: 0;
+  width: $sidebar-width;
+  padding: $sidebar-padding;
+  @include transition();
 
-    .video-title {
-      width: 80%;
-      display: inline-block;
-    }
-    .video-delete {
-      width: 20%;
-      display: inline-block;
-      color: $lightRed;
-      float:right;
-    }
-    .video-queue {
-      width: 20%;
-      display: inline-block;
-      color: $lightGreen;
-      float:right;
-    }
+  background: $color-main;
+  color: $color-sidebar-font;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+  margin-bottom: 16px;
+  -webkit-font-smoothing: antialiased;
+}
 
+#sidebartoggler {
+  display: none;
+
+  &:checked + .page-wrap {
+    .sidebar { left: 0px; }
+    .toggle { left: $sidebar-full-width + $toggler-offset; }
+    .page-content { padding-left: $sidebar-full-width; }
   }
 }
 
