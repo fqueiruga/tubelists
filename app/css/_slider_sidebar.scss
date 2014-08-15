@@ -17,27 +17,26 @@
   text-decoration: none;
   font-size: 30px;
   color: $color-main;
+  cursor: pointer;
 }
 
 .sidebar {
-  @include position(fixed, 0px 0px 0px $sidebar-offset);
+  @include position(absolute, 0 null null $sidebar-offset);
   z-index: 0;
   width: $sidebar-width;
+  min-height: 100%;
   padding: $sidebar-padding;
   @include transition();
 
   background: $color-main;
-  color: $color-sidebar-font;
-  font-family: "Ubuntu", sans-serif;
-  font-size: 16px;
-  margin-bottom: 16px;
-  -webkit-font-smoothing: antialiased;
 }
 
 #sidebartoggler {
+  position: fixed;
   display: none;
+  left: -9999px;
 
-  &:checked + .page-wrap {
+  &:checked + .l-page-wrap {
     .sidebar { left: 0px; }
     .toggle { left: $sidebar-full-width; }
     .page-content { padding-left: $sidebar-full-width; }

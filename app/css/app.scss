@@ -2,7 +2,9 @@
 @import "vendor/bower/bourbon/dist/_bourbon.scss";
 @import "vendor/bower/neat/app/assets/stylesheets/_neat.scss";
 
-
 @import "variables.scss";
+@import "base.scss";
+@import "layout.scss";
 @import "slider_sidebar.scss";
+@import "search.scss";
 @import "videos.scss";
