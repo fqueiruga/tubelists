@@ -11,6 +11,12 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+}
+
 * {
     @include transition(
         color 300ms ease-in-out,
