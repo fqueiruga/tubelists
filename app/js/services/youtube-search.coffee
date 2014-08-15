@@ -20,13 +20,14 @@ angular.module('tubelistsApp.services.youTubeSearch', [])
               type: 'video'
               maxResults: '6'
               part: 'id,snippet'
-              fields: 'items/id,items/snippet/title'
+              fields: 'items/id,items/snippet/title,items/snippet/thumbnails'
               q: query
           })
           .success (data) ->
             deferred.resolve data.items.map (item) ->
               videoId: item.id.videoId
               title: item.snippet.title
+              thumbnail: item.snippet.thumbnails.default.url
           .error (data) ->
             deferred.reject data
 

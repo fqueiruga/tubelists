@@ -14,10 +14,11 @@
 
   <ol class="search-results">
     <li class="search-results-item" ng-repeat="item in results">
-      <a href="" class="search-results-item-link" target="blank" ng-click="add(item)">
+      <a href="" class="search-results-item-link" target="blank"
+        ng-click="add(item)">
         <img class="search-results-item-img"
-          src="http://cloud-4.steampowered.com/ugc/540706343928725585/874257E1145E2DA0143523803AE07DBF174E8BF1/268x268.resizedimage"
-          alt="ayoyo">
+          ng-src="{{item.thumbnail}}"
+          alt="{{item.title}}">
 
         <p class="search-results-item-title">{{item.title}}</p>
       </a>
