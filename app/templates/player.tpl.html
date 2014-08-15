@@ -1,69 +1,72 @@
 <div ng-controller="PlayerCtrl">
+  <div class="videos-container">
 
-  <section class="player">
-    <youtube-video-player id="youtube-player" height="360" width="640">
-    </youtube-video-player>
+    <section class="video-player">
+      <youtube-video-player id="youtube-player" height="360" width="640">
+      </youtube-video-player>
 
-    <h2 class="current-video">
-      {{playList.current.title}}
-    </h2>
-
-
-    <ul class="player-controls inline">
-      <li>
-        <button class="btn" ng-click="controls.previous()"><<</button>
-      </li>
-      <li>
-        <button class="btn"
-          ng-click="controls.play()" ng-disabled="isPlaying">
-            Play
-        </button>
-      </li>
-      <li>
-        <button class="btn"
-          ng-click="controls.pause()" ng-disabled="!isPlaying">
-          Pause
-          </button>
-      </li>
-      <li>
-        <button class="btn" ng-click="controls.next()">>></button>
-      </li>
-      <li>
-        <h3>
-          Video {{state}}
-        </h3>
-      </li>
-    </ul>
-  </section>
+      <h2 class="current-video">
+        {{playList.current.title}}
+      </h2>
 
 
-  <section class="playlists">
-    <div class="list">
-      <h3 class="text-center">Upcoming</h3>
-      <ol>
-        <li ng-repeat="video in playList.upcoming">
-            <a ng-click="play(video)" class="video-title">
-              {{video.title}}
-            </a>
-            <a ng-click="remove(video)" class="video-delete">Eliminar</a>
+      <ul class="player-controls inline">
+        <li>
+          <button class="btn" ng-click="controls.previous()"><<</button>
         </li>
-      </ol>
-    </div>
+        <li>
+          <button class="btn"
+            ng-click="controls.play()" ng-disabled="isPlaying">
+              Play
+          </button>
+        </li>
+        <li>
+          <button class="btn"
+            ng-click="controls.pause()" ng-disabled="!isPlaying">
+            Pause
+            </button>
+        </li>
+        <li>
+          <button class="btn" ng-click="controls.next()">>></button>
+        </li>
+        <li>
+          <h3>
+            Video {{state}}
+          </h3>
+        </li>
+      </ul>
+    </section>
 
-    <div class="list">
-      <h3 class="text-center">History</h3>
-      <ol>
-        <li ng-repeat="video in playList.history">
-            <a ng-click="play(video)" class="video-title">
-              {{video.title}}
-            </a>
-            <a ng-click="remove(video)" class="video-delete">Eliminar</a>
-            <a ng-click="queue(video)" class="video-queue">Añadir a cola</a>
-      </li>
-      </ol>
-    </div>
 
-  </section>
+    <section class="video-playlists">
+      <div class="list">
+        <h3 class="text-center">Upcoming</h3>
+        <ol>
+          <li ng-repeat="video in playList.upcoming">
+              <a ng-click="play(video)" class="video-title">
+                {{video.title}}
+              </a>
+              <a ng-click="remove(video)" class="video-delete">Eliminar</a>
+          </li>
+        </ol>
+      </div>
+
+      <div class="list">
+        <h3 class="text-center">History</h3>
+        <ol>
+          <li ng-repeat="video in playList.history">
+              <a ng-click="play(video)" class="video-title">
+                {{video.title}}
+              </a>
+              <a ng-click="remove(video)" class="video-delete">Eliminar</a>
+              <a ng-click="queue(video)" class="video-queue">Añadir a cola</a>
+        </li>
+        </ol>
+      </div>
+
+    </section>
+
+  </div>
 
 </div>
 

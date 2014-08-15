@@ -1,0 +1,9 @@
+$color-main: #b0120a;
+$color-sidebar-font: rgba(255, 255, 255, 0.9);
+
+$sidebar-padding: 20px;
+$sidebar-width: 220px;
+$sidebar-full-width: $sidebar-width + ($sidebar-padding * 2);
+$sidebar-offset: -1 * $sidebar-full-width;
+
+$toggler-offset: 20px;

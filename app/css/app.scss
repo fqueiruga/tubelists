@@ -1,64 +1,8 @@
 @import "vendor/bower/font-awesome/scss/font-awesome";
 @import "vendor/bower/bourbon/dist/_bourbon.scss";
-
-/**
- * Variables
- */
-
-$color-main: #b0120a;
-$color-sidebar-font: rgba(255, 255, 255, 0.9);
-
-$sidebar-padding: 20px;
-$sidebar-width: 200px;
-$sidebar-full-width: $sidebar-width + ($sidebar-padding * 2);
-$sidebar-offset: -1 * $sidebar-full-width;
-
-$toggler-offset: 20px;
+@import "vendor/bower/neat/app/assets/stylesheets/_neat.scss";
 
 
-/**
- * Sidebar animation
- * Taken from https://www.youtube.com/watch?v=d4P8s-mkMvs
- */
-
-.page-content {
-  position: relative;
-  z-index: 0;
-  @include transition();
-}
-
-.toggle {
-  @include position(fixed, $toggler-offset null null $toggler-offset);
-  z-index: 1;
-  @include transition();
-
-  text-decoration: none;
-  font-size: 30px;
-  color: $color-main;
-}
-
-.sidebar {
-  @include position(fixed, 0px 0px 0px $sidebar-offset);
-  z-index: 0;
-  width: $sidebar-width;
-  padding: $sidebar-padding;
-  @include transition();
-
-  background: $color-main;
-  color: $color-sidebar-font;
-  font-family: "Ubuntu", sans-serif;
-  font-size: 16px;
-  margin-bottom: 16px;
-  -webkit-font-smoothing: antialiased;
-}
-
-#sidebartoggler {
-  display: none;
-
-  &:checked + .page-wrap {
-    .sidebar { left: 0px; }
-    .toggle { left: $sidebar-full-width + $toggler-offset; }
-    .page-content { padding-left: $sidebar-full-width; }
-  }
-}
-
+@import "variables.scss";
+@import "slider_sidebar.scss";
+@import "videos.scss";
