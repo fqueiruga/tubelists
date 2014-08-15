@@ -4,51 +4,33 @@
 
 angular.module('tubelistsApp.controllers.player', [])
 
-.controller('PlayerCtrl', ['$scope', 'youTubePlayerService', 'playListService'
-  , ($scope, youTubePlayerService, playListService) ->
+.controller('PlayerCtrl', ['$scope', 'youTubePlayerService', 'playlistService'
+  , ($scope, youTubePlayerService, playlistService) ->
 
-    $scope.playList = playListService
+    $scope.playlist = playlistService
     $scope.isPlaying = false
 
-    $scope.controls =
-      play: ->
-          youTubePlayerService.player.playVideo() unless $scope.isPlaying
-
-      pause: ->
-          youTubePlayerService.player.pauseVideo() if $scope.isPlaying
-
-      next: ->
-        next = $scope.playList.next()
-        $scope.controls.loadVideo() if next?
-
-      previous: ->
-        previous = $scope.playList.previous()
-        $scope.controls.loadVideo() if previous?
-
-      loadVideo: (options)->
-        options = options || {}
-        if $scope.isPlaying or options.autoplay
-          youTubePlayerService.loadVideo $scope.playList.current.videoId
-        else
-          youTubePlayerService.cueVideo $scope.playList.current.videoId
-
-    $scope.$watch 'isPlaying', ->
-      $scope.state = if $scope.isPlaying then "playing" else "paused"
-
-    $scope.queue = (video) ->
-      $scope.playList.add video
+    $scope.loadVideo = (options)->
+      options = options || {}
+      if $scope.isPlaying or options.autoplay
+        youTubePlayerService.loadVideo $scope.current().videoId
+      else
+        youTubePlayerService.cueVideo $scope.current().videoId
 
     $scope.remove = (video) ->
-      $scope.playList.remove video
+      playlistService.remove video
+
+    $scope.current = ->
+      playlistService.current()
 
     $scope.$on 'youtube:player:ready', ->
-      $scope.controls.loadVideo() if $scope.playList.current?
+      $scope.loadVideo() if $scope.current()?
 
     $scope.$on 'youtube:player:ended', ->
       # Youtube player will broadcast the PAUSED event before the ENDED event
       #   isPlaying will be false, so autoplay has to be forced
-      next = $scope.playList.next()
-      $scope.controls.loadVideo {autoplay: true} if next?
+      next = playlistService.next()
+      $scope.loadVideo {autoplay: true} if next?
 
     $scope.$on 'youtube:player:playing', ->
       $scope.isPlaying = true

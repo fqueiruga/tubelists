@@ -5,16 +5,25 @@ describe "PlayerCtrl", ->
   beforeEach module "tubelistsApp.controllers.player"
 
   beforeEach ->
-    @playList = jasmine.createSpyObj 'playList', ['remove', 'add']
-    @playList.history = [{videoId: "vid1"}, {videoId: "vid2"}]
-    @playList.upcoming = [{videoId: "vid4"}, {videoId: "vid5"}]
-    @playList.current = {videoId : "vid3"}
+    @playlist = jasmine.createSpyObj 'playlist', [
+      'remove'
+      'add'
+      'next'
+      'current'
+    ]
+    @playlist.list = [
+      {videoId: "vid1"}
+      {videoId: "vid2"}
+      {videoId: "vid3"}
+      {videoId: "vid4"}
+      {videoId: "vid5"}
+    ]
 
     @ytPlayer = jasmine.createSpyObj 'ytPlayer', ['loadVideo', 'cueVideo']
 
   beforeEach ->
     angular.mock.module ($provide) =>
-      $provide.value 'playListService', @playList
+      $provide.value 'playlistService', @playlist
       $provide.value 'youTubePlayerService', @ytPlayer
       null
 
@@ -24,28 +33,15 @@ describe "PlayerCtrl", ->
       @ctrl = $controller 'PlayerCtrl',
         $scope: @scope
 
-  it "should work", ->
-    expect(true).toEqual true
 
-  it "should queue a video", ->
-    @scope.queue {video: "vid1"}
-    expect(@playList.add).toHaveBeenCalled()
+  describe "#remove", ->
 
-  it "should remove a video from the play list", ->
-    @scope.remove {video: "vid1"}
-    expect(@playList.remove).toHaveBeenCalled()
-
-  it "should watch the values of $scope.isPlaying to set the state", ->
-    @scope.isPlaying = true
-    @scope.$digest()
-    expect(@scope.state).toEqual "playing"
-
-    @scope.isPlaying = false
-    @scope.$digest()
-    expect(@scope.state).toEqual "paused"
+    it "should remove a video from the play list", ->
+      @scope.remove {video: "vid1"}
+      expect(@playlist.remove).toHaveBeenCalled()
 
 
-  describe "player controls", ->
+  describe "#loadVideo", ->
 
     beforeEach ->
       @ytPlayer.player = jasmine.createSpyObj 'ytPlayer.player', [
@@ -53,92 +49,58 @@ describe "PlayerCtrl", ->
         'pauseVideo'
         'reset'
       ]
-      
+      @playlist.current.and.returnValue @playlist.list[0]
 
-    it "should play the current video if the player is paused", ->
+    it "does not cue the current video if it is not playing", ->
       @scope.isPlaying = false
-      @scope.controls.play()
-      expect(@ytPlayer.player.playVideo).toHaveBeenCalled()
-
-      @ytPlayer.player.playVideo.calls.reset()
-      @scope.isPlaying = true
-      @scope.controls.play()
-      expect(@ytPlayer.player.playVideo).not.toHaveBeenCalled()
-
-    it "should pause the current video if the player is playing", ->
-      @scope.isPlaying = true
-      @scope.controls.pause()
-      expect(@ytPlayer.player.pauseVideo).toHaveBeenCalled()
-
-      @ytPlayer.player.pauseVideo.calls.reset()
-      @scope.isPlaying = false
-      @scope.controls.pause()
-      expect(@ytPlayer.player.pauseVideo).not.toHaveBeenCalled()
-
-    it "should play the next video", ->
-      spyOn(@scope.controls, 'loadVideo')     
-      @playList.next = jasmine.createSpy("playList next")
-        .and.returnValue @playList.upcoming[0]
-      @scope.controls.next()
-      expect(@scope.controls.loadVideo).toHaveBeenCalled()
-
-    it "should play the previous video", ->
-      spyOn(@scope.controls, 'loadVideo')
-      @playList.previous = jasmine.createSpy("playList previous")
-        .and.returnValue @playList.upcoming[0]
-      @scope.controls.previous()
-      expect(@scope.controls.loadVideo).toHaveBeenCalled()
-
-    it "should load the current video", ->
-      @scope.isPlaying = false
-      @scope.controls.loadVideo()
+      @scope.loadVideo()
       expect(@ytPlayer.cueVideo).toHaveBeenCalled()
 
-      @scope.controls.loadVideo {autoplay: true}
+    it "cues the current video if autoplay is enabled", ->
+      @scope.isPlaying = false
+      @scope.loadVideo {autoplay: true}
       expect(@ytPlayer.loadVideo).toHaveBeenCalled()
 
-      @ytPlayer.loadVideo.calls.reset()
+    it "cues the current video if it is playing", ->
       @scope.isPlaying = true
-      @scope.controls.loadVideo()
+      @scope.loadVideo()
       expect(@ytPlayer.loadVideo).toHaveBeenCalled()
 
 
-  describe "scope event listeners for youtube:player", ->
+  describe "event listeners for youtube:player", ->
 
     beforeEach ->
       inject ($rootScope) => @rootScope = $rootScope
       @event = 'youtube:player'
 
-    it "should try to load the current video
-         when the youtube player is ready", ->
-      spyOn(@scope.controls, 'loadVideo')
-      @rootScope.$broadcast "youtube:player:ready"
-      expect(@scope.controls.loadVideo).toHaveBeenCalled()
+    it 'tries to load the current video when the player is ready', ->
+      spyOn(@scope, 'loadVideo')
+      @playlist.current.and.returnValue @playlist.list[0]
+      @rootScope.$broadcast 'youtube:player:ready'
+      expect(@scope.loadVideo).toHaveBeenCalled()
 
-    it "shouln't try to load the current video when the youtube player
+    it "does not try to load the current video when the youtube player
         is ready and no current video is set", ->
-      spyOn(@scope.controls, 'loadVideo')
-      @scope.playList.current = null
+      spyOn(@scope, 'loadVideo')
+      @playlist.current.and.returnValue undefined
       @scope.$digest()
       @rootScope.$broadcast "youtube:player:ready"
-      expect(@scope.controls.loadVideo).not.toHaveBeenCalled()
+      expect(@scope.loadVideo).not.toHaveBeenCalled()
 
-    it "should play the next video when a video ends", ->
-      spyOn(@scope.controls, 'loadVideo')
-      @playList.next = jasmine.createSpy("playList next")
-        .and.returnValue "video"
-      @rootScope.$broadcast "youtube:player:ended"
+    it "plays the next video when a video ends", ->
+      spyOn(@scope, 'loadVideo')
+      @playlist.next.and.returnValue @playlist.list[1]
+      @rootScope.$broadcast 'youtube:player:ended'
+      expect(@playlist.next).toHaveBeenCalled()
+      expect(@scope.loadVideo).toHaveBeenCalledWith {autoplay: true}
 
-      expect(@scope.playList.next).toHaveBeenCalled()
-      expect(@scope.controls.loadVideo).toHaveBeenCalledWith {autoplay: true}
-
-    it "should set state as playing when Playing state is broadcast", ->
+    it "sets state as playing when Playing state is broadcast", ->
       @scope.isPlaying = false
       @scope.$digest()
       @rootScope.$broadcast "youtube:player:playing"
       expect(@scope.isPlaying).toBe true
 
-    it "should set state as paused when Paused state is broadcast", ->
+    it "sets state as paused when Paused state is broadcast", ->
       @scope.isPlaying = true
       @rootScope.$broadcast "youtube:player:paused"
       expect(@scope.isPlaying).toBe false
