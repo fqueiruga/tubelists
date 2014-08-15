@@ -34,7 +34,8 @@ class YouTubePlayerService
   # Callback that broadcasts the event of youtube player ready
   onPlayerReady: =>
     @$log.info "Youtube player ready"
-    @$rootScope.$broadcast 'youtube:player:ready'
+    @$rootScope.$apply =>
+      @$rootScope.$broadcast 'youtube:player:ready'
 
   onPlayerStateChange: (event) =>
     switch event.data
@@ -42,7 +43,8 @@ class YouTubePlayerService
       when @YTPlayerStates.PLAYING then newEvent = "youtube:player:playing"
       when @YTPlayerStates.PAUSED then newEvent = "youtube:player:paused"
       else newEvent = "youtube:player:unknownState"
-    @$rootScope.$broadcast newEvent
+    @$rootScope.$apply =>
+      @$rootScope.$broadcast newEvent
 
   # Binds the video player attributes
   bindPlayer: (params) ->

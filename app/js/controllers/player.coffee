@@ -49,15 +49,12 @@ angular.module('tubelistsApp.controllers.player', [])
       #   isPlaying will be false, so autoplay has to be forced
       next = $scope.playList.next()
       $scope.controls.loadVideo {autoplay: true} if next?
-      $scope.$digest()
 
     $scope.$on 'youtube:player:playing', ->
       $scope.isPlaying = true
-      $scope.$digest()
 
     $scope.$on 'youtube:player:paused', ->
       $scope.isPlaying = false
-      $scope.$digest()
 
 ])
 
