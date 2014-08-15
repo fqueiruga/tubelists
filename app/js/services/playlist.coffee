@@ -45,28 +45,15 @@ class PlayListService
     @position = (@list.length - 1) if @position < 0
     @current()
 
-  # # Adds an item to the play list
-  # # if called with (item, {front: true}) it will be the first item of upcoming
-  # add: (item, options) ->
-  #   if @current?
-  #     @remove item
-  #     options = options || {}
-  #     if options.front
-  #       @upcoming.unshift item
-  #     else if options.toHistory
-  #       @history.push item
-  #     else
-  #       @upcoming.push item
-  #   else
-  #     @current = item
+  # Adds an item to the list
+  add: (item) ->
+    @list.push item
 
-  # # Removes an item from the play list
-  # remove: (item) ->
-  #   if item in @upcoming
-  #     @upcoming.splice @upcoming.indexOf(item), 1
-  #   if item in @history
-  #     @history.splice @history.indexOf(item), 1
-
+  # Removes an item from the list
+  remove: (item) ->
+    index = @list.indexOf item
+    return [] if index == -1
+    @list.splice index, 1
 
 
 #
