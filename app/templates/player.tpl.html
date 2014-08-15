@@ -6,68 +6,21 @@
       </youtube-video-player>
 
       <h2 class="current-video">
-        {{playlist.current.title}}
+        {{current().title}}
       </h2>
 
-
-      <ul class="player-controls inline">
-        <li>
-          <button class="btn" ng-click="controls.previous()"><<</button>
+    <section class="video-playlist">
+      <ol>
+        <li ng-repeat="video in playlist.list">
+          <a ng-click="play(video)" class="video-title">
+            {{video.title}}
+          </a>
+          <a href="" ng-click="remove(video)" class="video-delete">Eliminar</a>
         </li>
-        <li>
-          <button class="btn"
-            ng-click="controls.play()" ng-disabled="isPlaying">
-              Play
-          </button>
-        </li>
-        <li>
-          <button class="btn"
-            ng-click="controls.pause()" ng-disabled="!isPlaying">
-            Pause
-            </button>
-        </li>
-        <li>
-          <button class="btn" ng-click="controls.next()">>></button>
-        </li>
-        <li>
-          <h3>
-            Video {{state}}
-          </h3>
-        </li>
-      </ul>
-    </section>
-
-
-    <section class="video-playlists">
-      <div class="list">
-        <h3 class="text-center">Upcoming</h3>
-        <ol>
-          <li ng-repeat="video in playlist.upcoming">
-              <a ng-click="play(video)" class="video-title">
-                {{video.title}}
-              </a>
-              <a ng-click="remove(video)" class="video-delete">Eliminar</a>
-          </li>
-        </ol>
-      </div>
-
-      <div class="list">
-        <h3 class="text-center">History</h3>
-        <ol>
-          <li ng-repeat="video in playlist.history">
-              <a ng-click="play(video)" class="video-title">
-                {{video.title}}
-              </a>
-              <a ng-click="remove(video)" class="video-delete">Eliminar</a>
-              <a ng-click="queue(video)" class="video-queue">Añadir a cola</a>
-        </li>
-        </ol>
-      </div>
-
+      </ol>
     </section>
 
   </div>
-
 </div>
 
 
