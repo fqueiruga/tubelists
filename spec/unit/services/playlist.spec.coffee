@@ -27,31 +27,31 @@ describe "PlayList Service", ->
 
   describe '#next', ->
 
-    it 'should move forward the list', ->
+    it 'moves forward the list', ->
       @playlist.next()
       expect(@playlist.position).toEqual 1
 
-    it 'should cycle the list if current is the last element', ->
+    it 'cycles the list if current is the last element', ->
       @playlist.position = @playlist.list.length - 1
       @playlist.next()
       expect(@playlist.position).toEqual 0
 
-    it 'should return the next element', ->
+    it 'returns the next element', ->
       item = @playlist.next()
       expect(@playlist.list.indexOf(item)).toEqual 1
 
   describe '#previous', ->
 
-    it 'should move backwards the list', ->
+    it 'moves backwards the list', ->
       @playlist.position = 1
       @playlist.previous()
       expect(@playlist.position).toEqual 0
 
-    it 'should cycle the list backwards if current is the first element', ->
+    it 'cycles the list backwards if current is the first element', ->
       @playlist.previous()
       expect(@playlist.position).toEqual (@playlist.list.length - 1)
 
-    it 'should return the previous element', ->
+    it 'returns the previous element', ->
       @playlist.position = 1
       item = @playlist.previous()
       expect(@playlist.list.indexOf(item)).toEqual 0
@@ -61,7 +61,7 @@ describe "PlayList Service", ->
     beforeEach ->
       @item = 'new_video'
 
-    it 'should add an item to the list', ->
+    it 'adds an item to the list', ->
       oldLength = @playlist.list.length
       @playlist.add @item
       expect(@playlist.list.length).toEqual (oldLength + 1)
@@ -71,7 +71,7 @@ describe "PlayList Service", ->
     beforeEach ->
       @item = @playlist.current()
 
-    it 'should remove an item from the array', ->
+    it 'removes an item from the array', ->
       @playlist.remove @item
       expect(@item).not.toEqual @playlist.current()
 
