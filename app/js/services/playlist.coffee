@@ -5,7 +5,7 @@
 #
 # All playlist manipulations are done through functions
 #
-class PlayListService
+class PlaylistService
 
   constructor: ->
     @position = 0
@@ -27,7 +27,7 @@ class PlayListService
         title: "Avril Lavigne - When You're Gone"
     ]
 
-    # @playList = []
+    # @playlist = []
 
   # Returns the current element
   current: ->
@@ -59,8 +59,8 @@ class PlayListService
 #
 # Create the module and add the components
 #
-angular.module('tubelistsApp.services.playList', [])
+angular.module('tubelistsApp.services.playlist', [])
 
-  .service('playListService', PlayListService)
+  .service('playlistService', PlaylistService)
 
 

@@ -5,16 +5,16 @@ describe "PlayerCtrl", ->
   beforeEach module "tubelistsApp.controllers.player"
 
   beforeEach ->
-    @playList = jasmine.createSpyObj 'playList', ['remove', 'add']
-    @playList.history = [{videoId: "vid1"}, {videoId: "vid2"}]
-    @playList.upcoming = [{videoId: "vid4"}, {videoId: "vid5"}]
-    @playList.current = {videoId : "vid3"}
+    @playlist = jasmine.createSpyObj 'playlist', ['remove', 'add']
+    @playlist.history = [{videoId: "vid1"}, {videoId: "vid2"}]
+    @playlist.upcoming = [{videoId: "vid4"}, {videoId: "vid5"}]
+    @playlist.current = {videoId : "vid3"}
 
     @ytPlayer = jasmine.createSpyObj 'ytPlayer', ['loadVideo', 'cueVideo']
 
   beforeEach ->
     angular.mock.module ($provide) =>
-      $provide.value 'playListService', @playList
+      $provide.value 'playlistService', @playlist
       $provide.value 'youTubePlayerService', @ytPlayer
       null
 
@@ -29,11 +29,11 @@ describe "PlayerCtrl", ->
 
   it "should queue a video", ->
     @scope.queue {video: "vid1"}
-    expect(@playList.add).toHaveBeenCalled()
+    expect(@playlist.add).toHaveBeenCalled()
 
   it "should remove a video from the play list", ->
     @scope.remove {video: "vid1"}
-    expect(@playList.remove).toHaveBeenCalled()
+    expect(@playlist.remove).toHaveBeenCalled()
 
   it "should watch the values of $scope.isPlaying to set the state", ->
     @scope.isPlaying = true
@@ -53,7 +53,7 @@ describe "PlayerCtrl", ->
         'pauseVideo'
         'reset'
       ]
-      
+
 
     it "should play the current video if the player is paused", ->
       @scope.isPlaying = false
@@ -76,16 +76,16 @@ describe "PlayerCtrl", ->
       expect(@ytPlayer.player.pauseVideo).not.toHaveBeenCalled()
 
     it "should play the next video", ->
-      spyOn(@scope.controls, 'loadVideo')     
-      @playList.next = jasmine.createSpy("playList next")
-        .and.returnValue @playList.upcoming[0]
+      spyOn(@scope.controls, 'loadVideo')
+      @playlist.next = jasmine.createSpy("playlist next")
+        .and.returnValue @playlist.upcoming[0]
       @scope.controls.next()
       expect(@scope.controls.loadVideo).toHaveBeenCalled()
 
     it "should play the previous video", ->
       spyOn(@scope.controls, 'loadVideo')
-      @playList.previous = jasmine.createSpy("playList previous")
-        .and.returnValue @playList.upcoming[0]
+      @playlist.previous = jasmine.createSpy("playlist previous")
+        .and.returnValue @playlist.upcoming[0]
       @scope.controls.previous()
       expect(@scope.controls.loadVideo).toHaveBeenCalled()
 
@@ -118,18 +118,18 @@ describe "PlayerCtrl", ->
     it "shouln't try to load the current video when the youtube player
         is ready and no current video is set", ->
       spyOn(@scope.controls, 'loadVideo')
-      @scope.playList.current = null
+      @scope.playlist.current = null
       @scope.$digest()
       @rootScope.$broadcast "youtube:player:ready"
       expect(@scope.controls.loadVideo).not.toHaveBeenCalled()
 
     it "should play the next video when a video ends", ->
       spyOn(@scope.controls, 'loadVideo')
-      @playList.next = jasmine.createSpy("playList next")
+      @playlist.next = jasmine.createSpy("playlist next")
         .and.returnValue "video"
       @rootScope.$broadcast "youtube:player:ended"
 
-      expect(@scope.playList.next).toHaveBeenCalled()
+      expect(@scope.playlist.next).toHaveBeenCalled()
       expect(@scope.controls.loadVideo).toHaveBeenCalledWith {autoplay: true}
 
     it "should set state as playing when Playing state is broadcast", ->

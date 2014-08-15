@@ -6,11 +6,11 @@ describe "Search Controller", ->
 
   beforeEach ->
     @ytSearch = jasmine.createSpyObj 'ytSearch', ['search']
-    @playList = jasmine.createSpyObj 'playList', ['add']
+    @playlist = jasmine.createSpyObj 'playlist', ['add']
 
     angular.mock.module ($provide) =>
       $provide.value 'youTubeSearchService', @ytSearch
-      $provide.value 'playListService', @playList
+      $provide.value 'playlistService', @playlist
       null
 
   beforeEach ->

@@ -6,7 +6,7 @@
       </youtube-video-player>
 
       <h2 class="current-video">
-        {{playList.current.title}}
+        {{playlist.current.title}}
       </h2>
 
 
@@ -42,7 +42,7 @@
       <div class="list">
         <h3 class="text-center">Upcoming</h3>
         <ol>
-          <li ng-repeat="video in playList.upcoming">
+          <li ng-repeat="video in playlist.upcoming">
               <a ng-click="play(video)" class="video-title">
                 {{video.title}}
               </a>
@@ -54,7 +54,7 @@
       <div class="list">
         <h3 class="text-center">History</h3>
         <ol>
-          <li ng-repeat="video in playList.history">
+          <li ng-repeat="video in playlist.history">
               <a ng-click="play(video)" class="video-title">
                 {{video.title}}
               </a>

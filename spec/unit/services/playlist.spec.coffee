@@ -1,12 +1,12 @@
 'use strict'
 
-describe "PlayList Service", ->
+describe "PlaylistService", ->
 
-  beforeEach module "tubelistsApp.services.playList"
+  beforeEach module "tubelistsApp.services.playlist"
 
   beforeEach ->
-    inject (playListService) =>
-      @playlist = playListService
+    inject (playlistService) =>
+      @playlist = playlistService
       @playlist.position = 0
       @playlist.list = [
         'video1'
