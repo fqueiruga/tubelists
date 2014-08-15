@@ -7,21 +7,24 @@ angular.module('tubelistsApp.controllers.player', [])
 .controller('PlayerCtrl', ['$scope', 'youTubePlayerService', 'playlistService'
   , ($scope, youTubePlayerService, playlistService) ->
 
+    $scope.playlist = playlistService
+    $scope.isPlaying = false
+
     $scope.loadVideo = (options)->
       options = options || {}
       if $scope.isPlaying or options.autoplay
-        youTubePlayerService.loadVideo playlistService.current().videoId
+        youTubePlayerService.loadVideo $scope.current().videoId
       else
-        youTubePlayerService.cueVideo playlistService.current().videoId
+        youTubePlayerService.cueVideo $scope.current().videoId
 
     $scope.remove = (video) ->
       playlistService.remove video
 
-    $scope.playlist = playlistService.list
-    $scope.isPlaying = false
+    $scope.current = ->
+      playlistService.current()
 
     $scope.$on 'youtube:player:ready', ->
-      $scope.loadVideo() if playlistService.current()?
+      $scope.loadVideo() if $scope.current()?
 
     $scope.$on 'youtube:player:ended', ->
       # Youtube player will broadcast the PAUSED event before the ENDED event
