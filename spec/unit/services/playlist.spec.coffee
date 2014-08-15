@@ -6,85 +6,132 @@ describe "PlayList Service", ->
 
   beforeEach ->
     inject (playListService) =>
-      @playList = playListService
-      @playList.upcoming = ["Numa Numa"]
-      @playList.history = ["Chocolate Rain"]
-      @playList.current = "Rick roll"
+      @playlist = playListService
+      # @playlist.upcoming = ["Numa Numa"]
+      # @playlist.history = ["Chocolate Rain"]
+      # @playlist.current = "Rick roll"
+      @playlist.position = 0
+      @playlist.list = [
+        'video1'
+        'video2'
+        'video3'
+      ]
 
-  describe "moving through the list", ->
+  describe '#current', ->
 
-    it "should move forward the play list and return the current item", ->
-      item = @playList.next()
-      expect(item).toEqual "Numa Numa"
-      expect(@playList.upcoming.length).toBe 0
-      expect(@playList.history.length).toBe 2
-      expect(@playList.current).toBe item
+    it 'returns the current element', ->
+      expect(@playlist.current()).toEqual 'video1'
+      @playlist.position = 1
+      expect(@playlist.current()).toEqual 'video2'
 
-    it "shouldn't move forward the list if upcoming list is empty", ->
-      @playList.upcoming = []
-      @playList.next()
-      expect(@playList.current).toBeDefined()
+    it 'returns null if an invalid position is set', ->
+      @playlist.position = -1
+      expect(@playlist.current()).toBeUndefined()
 
-    it "should move the list backwards and return the current item", ->
-      item = @playList.previous()
-      expect(@playList.upcoming.length).toBe 2
-      expect(@playList.history.length).toBe 0
-      expect(@playList.current).toBe item
+  describe '#next', ->
 
-    it "shouldn't move the list backwards if history list is tempty", ->
-      @playList.history = []
-      @playList.previous()
-      expect(@playList.current).toBeDefined()
+    it 'should move forward the list', ->
+      @playlist.next()
+      expect(@playlist.position).toEqual 1
 
+    it 'should cycle the list if current is the last element', ->
+      @playlist.position = @playlist.list.length - 1
+      @playlist.next()
+      expect(@playlist.position).toEqual 0
 
-  describe "adding items to the list", ->
-    beforeEach ->
-      @item = "Top 10 fails"
-      @item2 = "People are awesome 2012"
+    it 'should return the next element', ->
+      item = @playlist.next()
+      expect(@playlist.list.indexOf(item)).toEqual 1
 
-    it "should set the item as current if it's not set", ->
-      @playList.current = null
-      @playList.add @item
-      expect(@playList.current).toEqual @item
+  describe '#previous', ->
 
-    it "should add a new item to the upcoming list", ->
-      @playList.add @item
-      expect(@playList.upcoming.length).toBe 2
+    it 'should move backwards the list', ->
+      @playlist.position = 1
+      @playlist.previous()
+      expect(@playlist.position).toEqual 0
 
-    it "should add a new item to the front of the upcoming list", ->
-      @playList.add @item, front: true
-      expect(@playList.upcoming[0]).toEqual @item
+    it 'should cycle the list backwards if current is the first element', ->
+      @playlist.previous()
+      expect(@playlist.position).toEqual (@playlist.list.length - 1)
 
-    it "should add a item to the history list", ->
-      @playList.add @item, toHistory: true
-      @playList.add @item2, toHistory: true
-      expect(@playList.history.pop()).toEqual @item2
-
-    it "should remove an item from the list before adding it", ->
-      @playList.add @playList.history[0]
-      expect(@playList.upcoming.length).toBe 2
-      expect(@playList.history.length).toBe 0
+    it 'should return the previous element', ->
+      @playlist.position = 1
+      item = @playlist.previous()
+      expect(@playlist.list.indexOf(item)).toEqual 0
 
 
-  describe "removing items from the list",  ->
-    beforeEach -> @item = "Top 10 fails"
 
-    it "should remove an item from the upcoming list", ->
-      @playList.upcoming.push @item
-      @playList.remove @item
-      expect(@playList.upcoming.length).toBe 1
+    # it "should move forward the play list and return the current item", ->
+    #   item = @playlist.next()
+    #   expect(item).toEqual "Numa Numa"
+    #   expect(@playlist.upcoming.length).toBe 0
+    #   expect(@playlist.history.length).toBe 2
+    #   expect(@playlist.current).toBe item
 
-    it "should remove an item from the history list", ->
-      @playList.history.push @item
-      @playList.remove @item
-      expect(@playList.history.length).toBe 1
+  #   it "shouldn't move forward the list if upcoming list is empty", ->
+  #     @playlist.upcoming = []
+  #     @playlist.next()
+  #     expect(@playlist.current).toBeDefined()
 
-    it "shouldn't remove the current item", ->
-      @playList.remove @playList.current
-      expect(@playList.current).not.toBeNull()
+  #   it "should move the list backwards and return the current item", ->
+  #     item = @playlist.previous()
+  #     expect(@playlist.upcoming.length).toBe 2
+  #     expect(@playlist.history.length).toBe 0
+  #     expect(@playlist.current).toBe item
+
+  #   it "shouldn't move the list backwards if history list is tempty", ->
+  #     @playlist.history = []
+  #     @playlist.previous()
+  #     expect(@playlist.current).toBeDefined()
 
 
-  it "should export the playlist merging both arrays", ->
-    @playList.history = ["Chocolate Rain", "Rick Roll"]
-    list = @playList.playList()
-    expect(list).toEqual(["Chocolate Rain", "Rick Roll", "Numa Numa"])
+  # describe "adding items to the list", ->
+  #   beforeEach ->
+  #     @item = "Top 10 fails"
+  #     @item2 = "People are awesome 2012"
+
+  #   it "should set the item as current if it's not set", ->
+  #     @playlist.current = null
+  #     @playlist.add @item
+  #     expect(@playlist.current).toEqual @item
+
+  #   it "should add a new item to the upcoming list", ->
+  #     @playlist.add @item
+  #     expect(@playlist.upcoming.length).toBe 2
+
+  #   it "should add a new item to the front of the upcoming list", ->
+  #     @playlist.add @item, front: true
+  #     expect(@playlist.upcoming[0]).toEqual @item
+
+  #   it "should add a item to the history list", ->
+  #     @playlist.add @item, toHistory: true
+  #     @playlist.add @item2, toHistory: true
+  #     expect(@playlist.history.pop()).toEqual @item2
+
+  #   it "should remove an item from the list before adding it", ->
+  #     @playlist.add @playlist.history[0]
+  #     expect(@playlist.upcoming.length).toBe 2
+  #     expect(@playlist.history.length).toBe 0
+
+
+  # describe "removing items from the list",  ->
+  #   beforeEach -> @item = "Top 10 fails"
+
+  #   it "should remove an item from the upcoming list", ->
+  #     @playlist.upcoming.push @item
+  #     @playlist.remove @item
+  #     expect(@playlist.upcoming.length).toBe 1
+
+  #   it "should remove an item from the history list", ->
+  #     @playlist.history.push @item
+  #     @playlist.remove @item
+  #     expect(@playlist.history.length).toBe 1
+
+  #   it "shouldn't remove the current item", ->
+  #     @playlist.remove @playlist.current
+  #     expect(@playlist.current).not.toBeNull()
+
+
+  # it "should export the playlist merging both arrays", ->
+  #   @playlist.history = ["Chocolate Rain", "Rick Roll"]
+  #   expect(@playlist.list).toEqual(["Chocolate Rain", "Rick Roll", "Numa Numa"])
