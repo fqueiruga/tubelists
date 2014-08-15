@@ -9,10 +9,13 @@ angular.module('tubelistsApp.controllers.search', [])
   , ($log, $scope, youTubeSearchService, playListService) ->
 
     $scope.search = ->
-      $scope.results = youTubeSearchService.search $scope.query
+      promise = youTubeSearchService.search $scope.query
+      promise.then (items) ->
+        $scope.results = items
 
     $scope.add = (video) ->
       playListService.add video
+
 ])
 
 

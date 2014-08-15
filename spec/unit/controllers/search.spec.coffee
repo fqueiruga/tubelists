@@ -14,7 +14,8 @@ describe "Search Controller", ->
       null
 
   beforeEach ->
-    inject ($injector, $controller) =>
+    inject ($injector, $q, $controller) =>
+      @q = $q
       @scope = $injector.get('$rootScope').$new()
       @ctrl = $controller 'SearchCtrl',
         $scope: @scope
@@ -22,14 +23,10 @@ describe "Search Controller", ->
   describe "youtube search", ->
 
     beforeEach ->
-      @ytSearch.search.and.returnValue "result"
+      deferred = @q.defer()
+      @ytSearch.search.and.returnValue deferred.promise
       @scope.query = "search filter"
 
     it "should invoke youtube search service", ->
       @scope.search()
       expect(@ytSearch.search).toHaveBeenCalledWith "search filter"
-
-    it "check the value returned", ->
-      @scope.search()
-      expect(@scope.results).toEqual "result"
-

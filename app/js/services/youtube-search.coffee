@@ -23,13 +23,10 @@ angular.module('tubelistsApp.services.youTubeSearch', [])
               fields: 'items/id,items/snippet/title'
               q: query
           })
-
           .success (data) ->
             deferred.resolve data.items.map (item) ->
-                videoId: item.id.videoId
-                title: item.snippet.title
-
-
+              videoId: item.id.videoId
+              title: item.snippet.title
           .error (data) ->
             deferred.reject data
 
