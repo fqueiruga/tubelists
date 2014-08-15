@@ -7,7 +7,7 @@
 #
 class PlaylistService
 
-  constructor: (@$scope) ->
+  constructor: ->
     @position = 0
 
     @list = [
@@ -27,7 +27,7 @@ class PlaylistService
         title: "Avril Lavigne - When You're Gone"
     ]
 
-    # @list = []
+    # @playlist = []
 
   # Returns the current element
   current: ->
@@ -61,6 +61,6 @@ class PlaylistService
 #
 angular.module('tubelistsApp.services.playlist', [])
 
-  .service('playlistService', ['$scope', PlaylistService])
+  .service('playlistService', PlaylistService)
 
 
