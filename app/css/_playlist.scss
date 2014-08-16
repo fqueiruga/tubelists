@@ -9,13 +9,30 @@
 .playlist-item {
   @include span-columns(6);
   @include media($medium-screen) {
-    @include span-columns(3);
+    @include span-columns(4);
   }
   @include media($large-screen) {
-    @include span-columns(2);
+    @include span-columns(3);
   }
   display: block;
   float: left;
-
-  padding: $space-medium;
+  padding: 0;
 }
+
+.playlist-item-link {
+  display: block;
+  padding: $space-small;
+
+  &:focus,
+  &:hover {
+    cursor: pointer;
+    color: $color-white;
+    background: rgba($color-main, 0.75);
+  }
+
+  &:active {
+    color: $color-white;
+    background: rgba($color-main, 0.9);
+  }
+}
+

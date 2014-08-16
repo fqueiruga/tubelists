@@ -3,16 +3,12 @@
 
     <li class="playlist-item"
           ng-repeat="video in playlist.list track by $index">
-      <a ng-click="play(video)" class="video-title">
+      <a href="" ng-click="play(video)" class="playlist-item-link">
 
-        <div class="playlist-item-tile tile-visible">
-          <img class="l-thumbnail"
+        <img class="l-thumbnail"
               ng-src="{{video.thumbnail}}"
               alt="{{video.title}}">
-          <p class="search-results-item-title">{{video.title}}</p>
-        </div>
-
-        <div class="playlist-item-tile tile-hidden">Play!</div>
+        <p class="search-results-item-title">{{video.title}}</p>
 
       </a>
     </li>

@@ -25,6 +25,7 @@ $button-bg-active: #4dd0e1;
  * Spacing
  */
 $space-medium: 20px;
+$space-small: golden-ratio($space-medium, 1);
 
 $input-padding: 7px;
 $input-font-size: 1.2em;
