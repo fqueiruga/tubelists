@@ -11,19 +11,7 @@
       <h2 class="current-video">{{playlist.current().title}}</h2>
     </article>
 
-    <aside class="playlist-container">
-      <ol class="playlist-list">
-
-        <li class="playlist-item" ng-repeat="video in playlist.list">
-          <a ng-click="play(video)" class="video-title">
-            <img class="l-thumbnail"
-              ng-src="{{video.thumbnail}}"
-              alt="{{video.title}}">
-            <p class="search-results-item-title">{{video.title}}</p>
-          </a>
-        </li>
-      </ol>
-    </aside>
+    <div ng-include src="'/templates/playlist.tpl.html'"></div>
 
   </div>
 </div>
