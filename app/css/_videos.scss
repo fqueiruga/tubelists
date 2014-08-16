@@ -35,6 +35,23 @@
 }
 
 .playlist-container {
-  @include fill-parent();
-  width: 100%;
+  @include row(table);
+}
+
+.playlist {
+  list-style: none;
+}
+
+.playlist-item {
+  @include span-columns(6);
+  @include media($medium-screen) {
+    @include span-columns(3);
+  }
+  @include media($large-screen) {
+    @include span-columns(2);
+  }
+  display: block;
+  float: left;
+
+  padding: $space-medium;
 }

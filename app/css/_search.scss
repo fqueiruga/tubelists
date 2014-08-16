@@ -39,8 +39,7 @@
 }
 
 .search-results-item-img {
-  max-width: 100%;
-  min-width: 100%;
+  @extend .l-thumbnail;
 }
 
 .search-results-item-title {

@@ -17,12 +17,18 @@
     </article>
 
     <aside class="playlist-container">
-      <ol>
-        <li ng-repeat="video in playlist.list">
-          <a ng-click="play(video)" class="video-title">
-            {{video.title}}
-          </a>
-          <a href="" ng-click="remove(video)" class="video-delete">Eliminar</a>
+      <ol class="playlist-list">
+        <li class="playlist-item" ng-repeat="video in playlist.list">
+
+
+            <a ng-click="play(video)" class="video-title">
+              <img class="l-thumbnail"
+                ng-src="{{video.thumbnail}}"
+                alt="{{video.title}}">
+                <p class="search-results-item-title">{{video.title}}</p>
+              </img>
+
+            </a>
         </li>
       </ol>
     </aside>
