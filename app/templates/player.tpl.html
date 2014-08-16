@@ -2,38 +2,28 @@
   <div class="videos-container">
 
     <article class="player-container">
-
       <div class="player-wrapper">
         <youtube-video-player
           id="youtube-player" height="360" width="640"
-          video-id="playlist.current().videoId">
-        </youtube-video-player>
+          video-id="playlist.current().videoId"></youtube-video-player>
       </div>
 
-
-      <h2 class="current-video">
-        {{playlist.current().title}}
-      </h2>
+      <h2 class="current-video">{{playlist.current().title}}</h2>
     </article>
 
     <aside class="playlist-container">
       <ol class="playlist-list">
+
         <li class="playlist-item" ng-repeat="video in playlist.list">
-
-
-            <a ng-click="play(video)" class="video-title">
-              <img class="l-thumbnail"
-                ng-src="{{video.thumbnail}}"
-                alt="{{video.title}}">
-                <p class="search-results-item-title">{{video.title}}</p>
-              </img>
-
-            </a>
+          <a ng-click="play(video)" class="video-title">
+            <img class="l-thumbnail"
+              ng-src="{{video.thumbnail}}"
+              alt="{{video.title}}">
+            <p class="search-results-item-title">{{video.title}}</p>
+          </a>
         </li>
       </ol>
     </aside>
 
   </div>
 </div>
-
-
