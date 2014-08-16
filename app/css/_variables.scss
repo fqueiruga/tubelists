@@ -1,11 +1,15 @@
-// Neat Breakpoints
+/**
+ * Neat Breakpoints
+ */
 $medium-screen: em(640);
 $large-screen: em(860);
 
 $medium-screen-up: new-breakpoint(min-width $medium-screen 4);
 $large-screen-up: new-breakpoint(min-width $large-screen 8);
 
-
+/**
+ * Colors
+ */
 $color-main: #b0120a;
 $color-white: #fff;
 
@@ -17,15 +21,18 @@ $button-bg: #00bcd4;
 $button-bg-hover: #26c6da;
 $button-bg-active: #4dd0e1;
 
+/**
+ * Spacing
+ */
+$space-medium: 20px;
+
 $input-padding: 7px;
 $input-font-size: 1.2em;
 
-
-$sidebar-padding: 20px;
+$sidebar-padding: $space-medium;
 $sidebar-width: 220px;
 $sidebar-full-width: $sidebar-width + ($sidebar-padding * 2);
 $sidebar-offset: -1 * $sidebar-full-width;
-$toggler-offset: 20px;
+$toggler-offset: $space-medium;
 
 $player-container-padding-top: 80px;
-$player-container-padding-bottom: 20px;

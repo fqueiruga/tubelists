@@ -6,7 +6,7 @@
 .player-container {
   margin: auto;
   padding-top: $player-container-padding-top;
-  padding-bottom: $player-container-padding-bottom;
+  padding-bottom: $space-medium;
 
   @include media($large-screen) {
     width: 90%;
@@ -27,6 +27,11 @@
     width: 100%;
     height: 100%;
   }
+}
+
+.current-video {
+  padding: $space-medium;
+  text-align: center;
 }
 
 .playlist-container {
