@@ -3,6 +3,11 @@
 
     <li class="playlist-item"
           ng-repeat="video in playlist.list track by $index">
+
+      <p class="playlist-item-remove" ng-click="remove(video)">
+        <i class="fa fa-times-circle-o"></i>
+      </p>
+
       <a href="" ng-click="play(video)" class="playlist-item-link">
 
         <img class="l-thumbnail"
@@ -11,6 +16,7 @@
         <p class="search-results-item-title">{{video.title}}</p>
 
       </a>
+
     </li>
 
   </ol>

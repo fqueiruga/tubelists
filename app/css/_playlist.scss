@@ -17,22 +17,50 @@
   display: block;
   float: left;
   padding: 0;
-}
-
-.playlist-item-link {
-  display: block;
-  padding: $space-small;
+  position: relative;
 
   &:focus,
   &:hover {
     cursor: pointer;
-    color: $color-white;
-    background: rgba($color-main, 0.75);
+    .playlist-item-link {
+      color: $color-white;
+      background: rgba($color-main, 0.75);
+    }
+
+    .playlist-item-remove {
+      opacity: 1;
+    }
   }
 
   &:active {
-    color: $color-white;
-    background: rgba($color-main, 0.9);
+    cursor: pointer;
+    .playlist-item-link {
+      color: $color-white;
+      background: rgba($color-main, 0.9);
+    }
+
+    .playlist-item-remove {
+      opacity: 1;
+    }
   }
 }
 
+.playlist-item-link {
+  display: block;
+  margin: $space-small/2;
+  padding: $space-small/2;
+}
+
+.playlist-item-remove {
+  color: rgba(#000, 0.6);
+  position: absolute;
+  top: -0.5ex;
+  right: 0;
+  font-size: 1.5em;
+  margin: 0;
+  opacity: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
