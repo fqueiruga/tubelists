@@ -2,11 +2,12 @@
   <div class="videos-container">
 
     <section class="video-player">
-      <youtube-video-player id="youtube-player" height="360" width="640">
+      <youtube-video-player id="youtube-player" height="360" width="640"
+        video-id="playlist.current().videoId">
       </youtube-video-player>
 
       <h2 class="current-video">
-        {{current().title}}
+        {{playlist.current().title}}
       </h2>
 
     <section class="video-playlist">
