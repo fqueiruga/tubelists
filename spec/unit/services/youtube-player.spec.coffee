@@ -26,7 +26,6 @@ describe "YouTube Player Service", ->
 
     @window.onYouTubeIframeAPIReady()
     expect(@youtube.apiReady).toEqual true
-    expect(@youtube.player).not.toBeNull()
 
   it "should emit the playerReady event", ->
     inject ($rootScope) =>
@@ -36,14 +35,6 @@ describe "YouTube Player Service", ->
     @youtube.onPlayerReady()
     expect(@rootScope.$broadcast)
       .toHaveBeenCalledWith 'youtube:player:ready'
-
-  it "should bind the player parameters", ->
-    params =
-      height: 200
-      width: 200
-      playerId: "player"
-    @youtube.bindPlayer params
-    expect(@youtube.playerId).toBeDefined()
 
   it "should load and play a video", ->
     @youtube.player = loadVideoById: jasmine.createSpy("loadVideoById spy")

@@ -8,15 +8,29 @@ angular.module('tubelistsApp.directives.youtubeVideoPlayer', [])
     , ($window, $log, youTubePlayerService) ->
 
       restrict: "AE"
-      scope: {}
       template: '<div></div>'
+      scope: {
+        videoId: '='
+        height: '='
+        width: '='
+      }
+
       link: (scope, element, attrs) ->
         $log.info "Linking directive youtubeVideoPlayer"
 
-        scope.params =
-          playerId: attrs.id
-          height: attrs.height
-          width: attrs.width
+        youtube = youTubePlayerService
+        youtube.playerId = attrs.id
+        youtube.height = scope.height ? 360
+        youtube.width = scope.width ? 640
 
-        youTubePlayerService.bindPlayer scope.params
+        unbindInitWatcher = scope.$watch ->
+          youtube.apiReady
+        , (apiReady) ->
+          console.log apiReady
+          console.log scope.videoId
+          if apiReady and  scope.videoId
+            unbindInitWatcher()
+            youtube.videoId = scope.videoId
+            youtube.createPlayer()
+
   ]

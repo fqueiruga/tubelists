@@ -13,9 +13,9 @@ class YouTubePlayerService
 
     # Sets the global youtube API callback
     $window.onYouTubeIframeAPIReady = =>
-      @apiReady = true
       @$log.info "Youtube API ready"
-      @createPlayer()
+      @$rootScope.$apply =>
+        @apiReady = true
 
   # Creates an instance of the youtube video player and binds the callbacks
   createPlayer: ->
@@ -45,13 +45,6 @@ class YouTubePlayerService
       else newEvent = "youtube:player:unknownState"
     @$rootScope.$apply =>
       @$rootScope.$broadcast newEvent
-
-  # Binds the video player attributes
-  bindPlayer: (params) ->
-    @playerId = params.playerId
-    @height = params.height
-    @width = params.width
-    @$log.info "Player params bound"
 
   # Loads and plays a video given its youtube ID
   loadVideo: (videoId) ->
