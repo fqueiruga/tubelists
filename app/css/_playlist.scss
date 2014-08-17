@@ -7,7 +7,7 @@
 }
 
 .playlist-item {
-  @include span-columns(6);
+  @include span-columns(12);
   @include media($medium-screen) {
     @include span-columns(4);
   }

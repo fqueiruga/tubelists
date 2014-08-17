@@ -1,14 +1,13 @@
 .videos-container {
   @include outer-container();
-  //background: green;
 }
 
 .player-container {
   margin: auto;
   padding-top: $player-container-padding-top;
-  padding-bottom: $space-medium;
 
   @include media($large-screen) {
+    padding-top: $space-medium;
     width: 90%;
   }
 }
