@@ -2,7 +2,7 @@
   <ol class="playlist-list">
 
     <li class="playlist-item" ng-class="{'current': isCurrent(video)}"
-          ng-repeat="video in playlist.list track by $index">
+          ng-repeat="video in playlist.list">
 
       <p class="playlist-item-remove" ng-click="remove(video)">
         <i class="fa fa-times-circle-o"></i>

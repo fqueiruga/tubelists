@@ -47,6 +47,7 @@ class PlaylistService
 
   # Adds an item to the list
   add: (item) ->
+    return undefined if @list.indexOf(item) != -1
     @list.push item
 
   # Removes an item from the list

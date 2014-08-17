@@ -66,6 +66,11 @@ describe "PlaylistService", ->
       @playlist.add @item
       expect(@playlist.list.length).toEqual (oldLength + 1)
 
+    it 'does not add a video already on the list', ->
+      oldLength = @playlist.list.length
+      @playlist.add 'video1'
+      expect(@playlist.list.length).toEqual oldLength
+
   describe '#remove', ->
 
     beforeEach ->
