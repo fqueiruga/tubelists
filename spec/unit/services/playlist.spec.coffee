@@ -89,3 +89,9 @@ describe "PlaylistService", ->
       @playlist.position = 2
       @playlist.remove @playlist.list[1]
       expect(@playlist.position).toEqual 1
+
+    it 'changes the position field if the removed element was the last one', ->
+      lastPosition = @playlist.list.length - 1
+      @playlist.position = lastPosition
+      @playlist.remove @playlist.list[lastPosition]
+      expect(@playlist.position).toEqual 0

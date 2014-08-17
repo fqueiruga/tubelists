@@ -54,8 +54,12 @@ class PlaylistService
   remove: (item) ->
     index = @list.indexOf item
     return [] if index == -1
+    if index < @position
+      @position--
+    else if (index == @position) and (index == (@list.length - 1))
+      @position = 0
     @list.splice index, 1
-    @position-- if index < @position
+
 
 
 #
