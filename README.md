@@ -1,3 +1,3 @@
-# TubeLists v.0.0.1
+# TubeLists
 
-A youtube jukebox writen in AngularJS
+A youtube jukebox writen in AngularJS.
