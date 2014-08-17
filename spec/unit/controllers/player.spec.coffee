@@ -10,6 +10,7 @@ describe "PlayerCtrl", ->
       'add'
       'next'
       'current'
+      'setCurrent'
     ]
     @playlist.list = [
       {videoId: "vid1"}
@@ -55,6 +56,16 @@ describe "PlayerCtrl", ->
       @playlist.list = [@obj]
       @scope.remove @obj
       expect(@playlist.remove).not.toHaveBeenCalled()
+
+
+  describe '#play', ->
+    beforeEach ->
+      @obj = {video: 'vid1'}
+      @playlist.current.and.returnValue @playlist.list[0]
+
+    it 'sets the given video as current', ->
+      @scope.play @obj
+      expect(@scope.playlist.setCurrent).toHaveBeenCalledWith @obj
 
 
   describe "#loadVideo", ->

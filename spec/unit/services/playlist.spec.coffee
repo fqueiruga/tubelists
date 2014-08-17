@@ -95,3 +95,13 @@ describe "PlaylistService", ->
       @playlist.position = lastPosition
       @playlist.remove @playlist.list[lastPosition]
       expect(@playlist.position).toEqual 0
+
+
+  describe '#setCurrent', ->
+
+    it 'sets an item as current', ->
+      @playlist.position = 0
+      item = @playlist.list[1]
+      @playlist.setCurrent item
+      expect(@playlist.position).toEqual 1
+      expect(@playlist.current()).toEqual item

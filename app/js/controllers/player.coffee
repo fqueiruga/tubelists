@@ -27,6 +27,10 @@ angular.module('tubelistsApp.controllers.player', [])
     $scope.isCurrent = (video) ->
       $scope.playlist.current() == video
 
+    $scope.play = (video) ->
+      $scope.playlist.setCurrent video
+      $scope.loadVideo()
+
 
     # YouTube player event handlers
     $scope.$on 'youtube:player:ready', ->

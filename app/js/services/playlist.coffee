@@ -42,6 +42,12 @@ class PlaylistService
       @position = 0
     @list.splice index, 1
 
+  # Sets the item as current
+  setCurrent: (item) ->
+    index = @list.indexOf item
+    return [] if index == -1
+    @position = index
+
 
 
 #
