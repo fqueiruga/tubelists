@@ -67,6 +67,20 @@ describe "PlayerCtrl", ->
       expect(@ytPlayer.loadVideo).toHaveBeenCalled()
 
 
+  describe 'isCurrent', ->
+
+    beforeEach ->
+      @obj = { videoId: '123' }
+
+    it 'returns true if the given video is the currently played', ->
+      @playlist.current.and.returnValue @obj
+      expect(@scope.isCurrent(@obj)).toBeTruthy()
+
+    it 'returns false if the given video is not the currently played', ->
+      @playlist.current.and.returnValue { videoId: 'abd' }
+      expect(@scope.isCurrent(@obj)).toBeFalsy()
+
+
   describe "event listeners for youtube:player", ->
 
     beforeEach ->

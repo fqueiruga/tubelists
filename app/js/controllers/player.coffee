@@ -20,6 +20,9 @@ angular.module('tubelistsApp.controllers.player', [])
     $scope.remove = (video) ->
       playlistService.remove video
 
+    $scope.isCurrent = (video) ->
+      $scope.playlist.current() == video
+
     $scope.$on 'youtube:player:ready', ->
       $scope.loadVideo() if $scope.playlist.current()?
 

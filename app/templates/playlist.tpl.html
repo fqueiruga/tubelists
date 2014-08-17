@@ -1,7 +1,7 @@
 <aside class="playlist-container">
   <ol class="playlist-list">
 
-    <li class="playlist-item"
+    <li class="playlist-item" ng-class="{'current': isCurrent(video)}"
           ng-repeat="video in playlist.list track by $index">
 
       <p class="playlist-item-remove" ng-click="remove(video)">
