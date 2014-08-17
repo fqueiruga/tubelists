@@ -55,6 +55,7 @@ class PlaylistService
     index = @list.indexOf item
     return [] if index == -1
     @list.splice index, 1
+    @position-- if index < @position
 
 
 #

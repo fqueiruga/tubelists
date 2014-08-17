@@ -84,3 +84,8 @@ describe "PlaylistService", ->
       listLength = @playlist.list.length
       @playlist.remove "not_in_list"
       expect(@playlist.list.length).toEqual listLength
+
+    it 'changes the position field if the removed item index was lower', ->
+      @playlist.position = 2
+      @playlist.remove @playlist.list[1]
+      expect(@playlist.position).toEqual 1
