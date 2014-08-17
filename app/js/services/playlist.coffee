@@ -9,25 +9,7 @@ class PlaylistService
 
   constructor: ->
     @position = 0
-
-    @list = [
-        videoId: "OpQFFLBMEPI"
-        title: "P!nk - Just Give Me A Reason ft. Nate Ruess"
-      ,
-        videoId: "KV2ssT8lzj8"
-        title: "Eminem - No Love (Explicit Version) ft. Lil Wayne"
-      ,
-        videoId: "j5-yKhDd64s"
-        title: "Music video by Eminem performing Not Afraid"
-      ,
-        videoId: "W-w3WfgpcGg"
-        title: "Bruno Mars - It Will Rain [OFFICIAL VIDEO]"
-      ,
-        videoId: "0G3_kG5FFfQ"
-        title: "Avril Lavigne - When You're Gone"
-    ]
-
-    # @playlist = []
+    @playlist = []
 
   # Returns the current element
   current: ->

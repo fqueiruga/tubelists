@@ -10,6 +10,7 @@ angular.module('tubelistsApp.controllers.player', [])
     $scope.playlist = playlistService
     $scope.isPlaying = false
 
+    # Loads or cues the current video
     $scope.loadVideo = (options)->
       options = options || {}
       if $scope.isPlaying or options.autoplay
@@ -26,6 +27,8 @@ angular.module('tubelistsApp.controllers.player', [])
     $scope.isCurrent = (video) ->
       $scope.playlist.current() == video
 
+
+    # YouTube player event handlers
     $scope.$on 'youtube:player:ready', ->
       $scope.loadVideo() if $scope.playlist.current()?
 
@@ -40,6 +43,22 @@ angular.module('tubelistsApp.controllers.player', [])
 
     $scope.$on 'youtube:player:paused', ->
       $scope.isPlaying = false
+
+
+    # list initialization
+    $scope.playlist.list = [
+        videoId: "3MteSlpxCpo"
+        title: "[Official Video] Daft Punk - Pentatonix"
+        thumbnail: "https://i.ytimg.com/vi/3MteSlpxCpo/default.jpg"
+      ,
+        videoId: "ktvTqknDobU"
+        title: "Imagine Dragons - Radioactive"
+        thumbnail: "https://i.ytimg.com/vi/ktvTqknDobU/default.jpg"
+      ,
+        videoId: "6Ejga4kJUts"
+        title: "The Cranberries - Zombie",
+        thumbnail: "https://i.ytimg.com/vi/6Ejga4kJUts/default.jpg"
+    ]
 
 ])
 
