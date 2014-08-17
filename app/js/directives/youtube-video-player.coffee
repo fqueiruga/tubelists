@@ -26,8 +26,6 @@ angular.module('tubelistsApp.directives.youtubeVideoPlayer', [])
         unbindInitWatcher = scope.$watch ->
           youtube.apiReady
         , (apiReady) ->
-          console.log apiReady
-          console.log scope.videoId
           if apiReady and  scope.videoId
             unbindInitWatcher()
             youtube.videoId = scope.videoId
