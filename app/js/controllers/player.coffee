@@ -18,7 +18,9 @@ angular.module('tubelistsApp.controllers.player', [])
         youTubePlayerService.cueVideo $scope.playlist.current().videoId
 
     $scope.remove = (video) ->
-      playlistService.remove video
+      wasCurrent =  $scope.isCurrent(video)
+      $scope.playlist.remove video
+      $scope.loadVideo() if wasCurrent
 
     $scope.isCurrent = (video) ->
       $scope.playlist.current() == video

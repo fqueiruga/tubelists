@@ -35,10 +35,21 @@ describe "PlayerCtrl", ->
 
 
   describe "#remove", ->
+    beforeEach ->
+      @obj = {video: "vid1"}
+      spyOn(@scope, 'loadVideo')
 
-    it "should remove a video from the play list", ->
-      @scope.remove {video: "vid1"}
+    it "should remove a video from the playlist", ->
+      @playlist.current.and.returnValue {video: 'vid2'}
+      @scope.remove @obj
       expect(@playlist.remove).toHaveBeenCalled()
+      expect(@scope.loadVideo).not.toHaveBeenCalled()
+
+    it 'should remove the current video from the playlist', ->
+      @playlist.current.and.returnValue @obj
+      @scope.remove @obj
+      expect(@playlist.remove).toHaveBeenCalled()
+      expect(@scope.loadVideo).toHaveBeenCalled()
 
 
   describe "#loadVideo", ->
