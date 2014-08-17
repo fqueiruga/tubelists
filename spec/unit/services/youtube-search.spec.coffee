@@ -21,11 +21,15 @@ describe "YouTube Search Service", ->
             videoId: "vid1"
           snippet:
             title: "video 1"
+            thumbnails:
+              default: "thumnail1"
         ,
           id:
             videoId: "vid2"
           snippet:
             title: "video 2"
+            thumbnails:
+              default: "thumnail1"
       ]
 
   it "should resolve an array of videos", ->
@@ -44,9 +48,8 @@ describe "YouTube Search Service", ->
     promise.then (data) ->
       result = data
     @httpBackend.flush()
-    expect(result).toContain
-          videoId: "vid1"
-          title: "video 1"
+    expect(result[0].videoId).toEqual 'vid1'
+
 
   it "should reject the promise and respond with error", ->
     @httpBackend.expectGET(@urlRegex).respond 400, "error"
