@@ -39,17 +39,22 @@ describe "PlayerCtrl", ->
       @obj = {video: "vid1"}
       spyOn(@scope, 'loadVideo')
 
-    it "should remove a video from the playlist", ->
+    it "removes a video from the playlist", ->
       @playlist.current.and.returnValue {video: 'vid2'}
       @scope.remove @obj
       expect(@playlist.remove).toHaveBeenCalled()
       expect(@scope.loadVideo).not.toHaveBeenCalled()
 
-    it 'should remove the current video from the playlist', ->
+    it 'removes the current video from the playlist', ->
       @playlist.current.and.returnValue @obj
       @scope.remove @obj
       expect(@playlist.remove).toHaveBeenCalled()
       expect(@scope.loadVideo).toHaveBeenCalled()
+
+    it 'does not remove a video if it is the only remaining', ->
+      @playlist.list = [@obj]
+      @scope.remove @obj
+      expect(@playlist.remove).not.toHaveBeenCalled()
 
 
   describe "#loadVideo", ->
