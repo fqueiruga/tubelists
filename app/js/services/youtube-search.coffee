@@ -27,7 +27,7 @@ angular.module('tubelistsApp.services.youTubeSearch', [])
             deferred.resolve data.items.map (item) ->
               videoId: item.id.videoId
               title: item.snippet.title
-              thumbnail: item.snippet.thumbnails.default.url
+              thumbnail: item.snippet.thumbnails.medium.url
           .error (data) ->
             deferred.reject data
 

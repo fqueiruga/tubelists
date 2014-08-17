@@ -49,15 +49,15 @@ angular.module('tubelistsApp.controllers.player', [])
     $scope.playlist.list = [
         videoId: "3MteSlpxCpo"
         title: "[Official Video] Daft Punk - Pentatonix"
-        thumbnail: "https://i.ytimg.com/vi/3MteSlpxCpo/default.jpg"
+        thumbnail: "https://i.ytimg.com/vi/3MteSlpxCpo/mqdefault.jpg"
       ,
         videoId: "ktvTqknDobU"
         title: "Imagine Dragons - Radioactive"
-        thumbnail: "https://i.ytimg.com/vi/ktvTqknDobU/default.jpg"
+        thumbnail: "https://i.ytimg.com/vi/ktvTqknDobU/mqdefault.jpg"
       ,
         videoId: "6Ejga4kJUts"
         title: "The Cranberries - Zombie",
-        thumbnail: "https://i.ytimg.com/vi/6Ejga4kJUts/default.jpg"
+        thumbnail: "https://i.ytimg.com/vi/6Ejga4kJUts/mqdefault.jpg"
     ]
 
 ])
