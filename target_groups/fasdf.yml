@@ -1,0 +1,10 @@
+type: target-group
+name: fasdf
+conditions:
+  - operator: is-undefined
+    property: rox.platform
+  - operator: in-array
+    property: rox.language
+    operand:
+      - wolo
+      - lolo
